@@ -8,13 +8,18 @@ import wretch from 'wretch';
 import { Modal } from './Modal';
 import { ArrayInput } from './ArrayInput';
 
+const SAMPLE_INPUT = {
+  array: [3, 5, -4, 8, 11, 1, -1, 6],
+  sum: 10,
+}
+
 const ColumnBox = (props: BoxProps) => (
   <Box width={300} margin={1} {...props} />
 );
 
 export const TwoNumberSum: React.FC = () => {
-  const [array, setArray] = React.useState(['12', '22', '33']);
-  const [sum, setSum] = React.useState('');
+  const [array, setArray] = React.useState(SAMPLE_INPUT.array.map(String));
+  const [sum, setSum] = React.useState(String(SAMPLE_INPUT.sum));
   const [result, setResult] = React.useState('');
   const [error, setError] = React.useState('');
   const [modalOpen, setModalOpen] = React.useState(false);
