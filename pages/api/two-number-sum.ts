@@ -4,40 +4,39 @@ import { twoNumberSum } from 'services/twoNumberSum';
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { n, s },
-    // method,
+    method,
   } = req;
 
-  // console.log(array[2]);
+  if (method !== 'GET') {
+    res.status(405).end(`Method ${method} not allowed, please use GET`);
+    return;
+  }
 
   const intArray = Array<string>()
-    .concat(n) // one or more `n`, make it array for sure
+    .concat(n) // one `n` or more, make it an array for sure
     .map((str) => str?.split(',')) // for `?n=1,2,3`
     .flat() // for `?n=1&n=2,3`
     .map(Number)
     .filter(Boolean); // remove non-numbers
-  const isValidArray = intArray?.length > 1
 
-  const sum = Number(s);
+  const isValidArray = intArray?.length > 1;
+  if (!isValidArray) {
+    res.status(400).end(`Array is not valid`);
+    return;
+  }
 
-  if ( !isValidArray || isNaN(sum)) {
-    res.status(400).end();
+  const lastS = Array<string>().concat(s).pop();
+  const sum = Number(lastS);
+
+  if (lastS === '' || isNaN(sum)) {
+    res.status(400).end(`Sum is not passed or not valid`);
     return;
   }
 
   const [first, second, ...other] = intArray;
   const array = [first, second, ...other] as const;
 
-  res.statusCode = 200;
-  res.json(twoNumberSum({ array, sum }));
-
-  // res.json({
-  //   n,
-  //   array,
-  //   s,
-  //   sum,
-  //   method,
-  //   result: twoNumberSum({ array, sum }),
-  // });
+  res.status(200).json(twoNumberSum({ array, sum }));
 };
 
 export default handler;
