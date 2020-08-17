@@ -1,6 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import { TwoNumberSum } from 'components/TwoNumberSum';
+import dynamic from "next/dynamic";
+
+const TwoNumberSum = dynamic(() => import("components/TwoNumberSum"), {
+  ssr: false,
+});
 
 export const Home: React.FC = () => (
   <div className="container">
