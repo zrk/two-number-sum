@@ -24,6 +24,7 @@ export const TwoNumberSum: React.FC = () => {
 
   const handleSubmit = React.useCallback(() => {
     setResult('');
+    setError('');
     setModalOpen(true);
     wretch('/api/two-number-sum')
       .query({ n: array, s: sum })
