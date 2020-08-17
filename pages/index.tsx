@@ -1,16 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
-import { App } from 'components/App';
+import { TwoNumberSum } from 'components/TwoNumberSum';
 
-export const Home = (): JSX.Element => (
+export const Home: React.FC = () => (
   <div className="container">
     <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
+      <title>Two Number Sum</title>
     </Head>
 
     <main>
-      <App />
+      <TwoNumberSum />
     </main>
   </div>
 );

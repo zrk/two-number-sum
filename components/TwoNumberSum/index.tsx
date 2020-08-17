@@ -10,7 +10,7 @@ import wretch from 'wretch';
 import { Modal } from './Modal';
 import { ArrayInput } from './ArrayInput';
 
-export function App() {
+export const TwoNumberSum: React.FC = () => {
   const [array, setArray] = React.useState(['12', '22', '33']);
   const [sum, setSum] = React.useState('');
   const [result, setResult] = React.useState('');
@@ -24,7 +24,7 @@ export function App() {
 
   const handleSubmit = React.useCallback(() => {
     setModalOpen(true);
-    wretch('http://localhost:3000/api/two-number-sum')
+    wretch('/api/two-number-sum')
       .query({ n: array, s: sum })
       .get()
       .json((j) => setResult(j[1] ? `${j[0]}, ${j[1]}` : 'not found'))
