@@ -1,14 +1,16 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
+import Box, { BoxProps } from '@material-ui/core/Box';
 import wretch from 'wretch';
 
 import { Modal } from './Modal';
 import { ArrayInput } from './ArrayInput';
+
+const ColumnBox = (props: BoxProps) => (
+  <Box width={300} margin={1} {...props} />
+);
 
 export const TwoNumberSum: React.FC = () => {
   const [array, setArray] = React.useState(['12', '22', '33']);
@@ -38,38 +40,45 @@ export const TwoNumberSum: React.FC = () => {
   ]);
 
   return (
-    <Grid container justify="center" direction={'column'} spacing={2}>
-      <Grid item xs={12}>
-        <Box textAlign={'center'} m={2}>
-          [{array.filter(Boolean).join(', ')}]
-        </Box>
-      </Grid>
-      <Grid container item justify="center" spacing={2}>
-        <Grid item xs={12} md={3}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box textAlign="center" m={2}>
+        [{array.filter(Boolean).join(', ')}]
+      </Box>
+
+      <Box display="flex" justifyContent="center" flexWrap="wrap">
+        <ColumnBox>
           <Paper variant="outlined">
-            <ArrayInput value={array} onChange={setArray} />
+            <Box maxHeight={500} overflow="auto">
+              <ArrayInput value={array} onChange={setArray} />
+            </Box>
           </Paper>
-        </Grid>
-        <Grid item xs={12} md={3}>
+        </ColumnBox>
+
+        <ColumnBox>
           <TextField
+            key="Sum"
             fullWidth
             variant="outlined"
             label="Sum"
             value={sum}
             type="tel"
-            required
             onChange={handleChangeSum}
           />
-          <FormControl fullWidth margin="normal">
-            <Button
-              fullWidth
-              color="primary"
-              variant="contained"
-              onClick={handleSubmit}
-            >
-              Find two numbers
-            </Button>
-          </FormControl>
+          <Box clone mt={2}>
+          <Button
+            fullWidth
+            color="primary"
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Find two numbers
+          </Button>
+          </Box>
           <Modal
             sum={sum}
             result={result}
@@ -77,8 +86,10 @@ export const TwoNumberSum: React.FC = () => {
             onClose={handleModalClose}
             open={modalOpen}
           />
-        </Grid>
-      </Grid>
-    </Grid>
+        </ColumnBox>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default TwoNumberSum;
