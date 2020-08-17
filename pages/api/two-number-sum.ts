@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { twoNumberSum } from '../../services/twoNumberSum';
+import { twoNumberSum } from 'services/twoNumberSum';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const {
