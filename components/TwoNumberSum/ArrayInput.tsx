@@ -20,8 +20,8 @@ export const ArrayInput: React.FC<Props> = ({ value, onChange }) => {
     (i) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const newArray = value.slice();
       newArray[i] =
-        e.target.value === ''
-          ? ''
+        ['', '+', '-'].includes(e.target.value?.trim())
+          ? e.target.value
           : isNaN(Number(e.target.value))
           ? value[i]
           : e.target.value;
